@@ -24,7 +24,7 @@ namespace FreeSecureLib.Camera
 
         private MotionDetector motionDetector;
 
-        private static object videoLock = new object();
+        private static object frameLock = new object();
 
         public Controller(string monikerString) {
             videoDevice = new VideoCaptureDevice(monikerString);
@@ -71,7 +71,10 @@ namespace FreeSecureLib.Camera
         {
             if (FrameProcessing != null && motionDetector.ProcessFrame(eventArgs.Frame) > 0.15F)
             {
-                FrameProcessing(eventArgs.Frame);
+                lock (frameLock)
+                {
+                    FrameProcessing(eventArgs.Frame);
+                }
             }
         }
     }
