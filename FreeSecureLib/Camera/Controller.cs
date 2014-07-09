@@ -22,11 +22,15 @@ namespace FreeSecureLib.Camera
 
         private VideoCaptureDevice videoDevice;
 
+        private MotionDetector motionDetector;
+
         private static object videoLock = new object();
 
         public Controller(string monikerString) {
             videoDevice = new VideoCaptureDevice(monikerString);
             videoSource = new AsyncVideoSource(videoDevice, true);
+
+            motionDetector = new MotionDetector(new TwoFramesDifferenceDetector());
             videoSource.NewFrame += videoSource_NewFrame;
             videoSource.PlayingFinished += videoSource_PlayingFinished;
             videoSource.VideoSourceError += videoSource_VideoSourceError;
@@ -65,8 +69,10 @@ namespace FreeSecureLib.Camera
 
         private void videoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
-            if (FrameProcessing != null)
+            if (FrameProcessing != null && motionDetector.ProcessFrame(eventArgs.Frame) > 0.15F)
+            {
                 FrameProcessing(eventArgs.Frame);
+            }
         }
     }
 }
