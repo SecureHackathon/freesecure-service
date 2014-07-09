@@ -29,8 +29,8 @@ namespace FreeSecureLib.Camera
         public Controller(string monikerString) {
             videoDevice = new VideoCaptureDevice(monikerString);
             videoSource = new AsyncVideoSource(videoDevice, true);
-
             motionDetector = new MotionDetector(new TwoFramesDifferenceDetector());
+
             videoSource.NewFrame += videoSource_NewFrame;
             videoSource.PlayingFinished += videoSource_PlayingFinished;
             videoSource.VideoSourceError += videoSource_VideoSourceError;
