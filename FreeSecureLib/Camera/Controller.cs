@@ -12,8 +12,11 @@ namespace FreeSecureLib.Camera
 {
     public class Controller
     {
+
         public event Action<System.Drawing.Bitmap> FrameProcessing;
-        
+
+        public event Action<System.Drawing.Bitmap> MotionFrameProcessing;
+
         public event Action<CameraState> CameraClosingHandler;
 
         public event Action<string> FrameProcessingError;
@@ -69,11 +72,16 @@ namespace FreeSecureLib.Camera
 
         private void videoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
-            if (FrameProcessing != null && motionDetector.ProcessFrame(eventArgs.Frame) > 0.15F)
+            lock (frameLock)
             {
-                lock (frameLock)
+                System.Drawing.Bitmap frame = eventArgs.Frame;
+
+                if (FrameProcessing != null)
+                    FrameProcessing(frame);
+
+                if (MotionFrameProcessing != null && motionDetector.ProcessFrame(eventArgs.Frame) > 0.15F)
                 {
-                    FrameProcessing(eventArgs.Frame);
+                    MotionFrameProcessing(frame);
                 }
             }
         }
