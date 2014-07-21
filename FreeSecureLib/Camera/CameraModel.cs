@@ -10,6 +10,5 @@ namespace FreeSecureLib.Camera
     {
         public string Name { get; set; }
         public string MonikerString { get; set; }
-        public string CameraID { get; set; }
     }
 }

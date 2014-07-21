@@ -14,6 +14,7 @@ namespace FreeSecureLib.Camera
         
         public void LoadCameras()
         {
+
             cameraInfoCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             if (cameraInfoCollection.Count > 0)
             {
@@ -23,7 +24,7 @@ namespace FreeSecureLib.Camera
                     Cameras.Add(new CameraModel
                     {
                         MonikerString = cameraInfo.MonikerString,
-                        CameraID = cameraInfo.Name
+                        Name = cameraInfo.Name
                     });
                 }
                 camerasLoaded = true;
