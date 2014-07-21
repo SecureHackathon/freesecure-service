@@ -13,13 +13,13 @@ namespace FreeSecureLib.Camera
     public class Controller
     {
 
-        public event Action<System.Drawing.Bitmap> FrameProcessing;
+        public event Action<System.Drawing.Bitmap> FrameProcessingHandler;
 
-        public event Action<System.Drawing.Bitmap> MotionFrameProcessing;
+        public event Action<System.Drawing.Bitmap> MotionFrameProcessingHandler;
 
         public event Action<CameraState> CameraClosingHandler;
 
-        public event Action<string> FrameProcessingError;
+        public event Action<string> FrameProcessingErrorHandler;
 
         private IVideoSource videoSource;
 
@@ -34,9 +34,7 @@ namespace FreeSecureLib.Camera
             videoSource = new AsyncVideoSource(videoDevice, true);
             motionDetector = new MotionDetector(new TwoFramesDifferenceDetector());
 
-            videoSource.NewFrame += videoSource_NewFrame;
-            videoSource.PlayingFinished += videoSource_PlayingFinished;
-            videoSource.VideoSourceError += videoSource_VideoSourceError;
+            
         }
 
         public bool IsRunning()
@@ -47,7 +45,13 @@ namespace FreeSecureLib.Camera
         public void StartCamera()
         {
             if (!IsRunning())
+            {
                 videoSource.Start();
+                videoSource.NewFrame += videoSource_NewFrame;
+                videoSource.PlayingFinished += videoSource_PlayingFinished;
+                videoSource.VideoSourceError += videoSource_VideoSourceError;
+            }
+
         }
 
         public void StopCamera()
@@ -55,13 +59,17 @@ namespace FreeSecureLib.Camera
             if (IsRunning()) {
                 videoSource.SignalToStop();
                 videoSource.Stop();
+
+                videoSource.NewFrame -= videoSource_NewFrame;
+                videoSource.PlayingFinished -= videoSource_PlayingFinished;
+                videoSource.VideoSourceError -= videoSource_VideoSourceError;
             }
         }
 
         private void videoSource_VideoSourceError(object sender, VideoSourceErrorEventArgs eventArgs)
         {
-            if (FrameProcessingError != null)
-                FrameProcessingError(eventArgs.Description);
+            if (FrameProcessingErrorHandler != null)
+                FrameProcessingErrorHandler(eventArgs.Description);
         }
 
         private void videoSource_PlayingFinished(object sender, ReasonToFinishPlaying reason)
@@ -76,12 +84,12 @@ namespace FreeSecureLib.Camera
             {
                 System.Drawing.Bitmap frame = eventArgs.Frame;
 
-                if (FrameProcessing != null)
-                    FrameProcessing(frame);
+                if (FrameProcessingHandler != null)
+                    FrameProcessingHandler(frame);
 
-                if (MotionFrameProcessing != null && motionDetector.ProcessFrame(eventArgs.Frame) > 0.15F)
+                if (MotionFrameProcessingHandler != null && motionDetector.ProcessFrame(eventArgs.Frame) > 0.15F)
                 {
-                    MotionFrameProcessing(frame);
+                    MotionFrameProcessingHandler(frame);
                 }
             }
         }
