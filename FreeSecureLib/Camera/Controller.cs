@@ -32,7 +32,7 @@ namespace FreeSecureLib.Camera
         public Controller(string monikerString) {
             videoDevice = new VideoCaptureDevice(monikerString);
             videoSource = new AsyncVideoSource(videoDevice, true);
-            motionDetector = new MotionDetector(new TwoFramesDifferenceDetector());
+            motionDetector = new MotionDetector(new SimpleBackgroundModelingDetector());
         }
 
         public bool IsRunning()
@@ -85,7 +85,7 @@ namespace FreeSecureLib.Camera
                 if (FrameProcessingHandler != null)
                     FrameProcessingHandler(frame);
 
-                if (MotionFrameProcessingHandler != null && motionDetector.ProcessFrame(eventArgs.Frame) > 0.15F)
+                if (MotionFrameProcessingHandler != null && motionDetector.ProcessFrame(eventArgs.Frame) > 0.10F)
                 {
                     MotionFrameProcessingHandler(frame);
                 }
