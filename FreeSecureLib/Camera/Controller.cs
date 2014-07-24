@@ -33,8 +33,6 @@ namespace FreeSecureLib.Camera
             videoDevice = new VideoCaptureDevice(monikerString);
             videoSource = new AsyncVideoSource(videoDevice, true);
             motionDetector = new MotionDetector(new TwoFramesDifferenceDetector());
-
-            
         }
 
         public bool IsRunning()
