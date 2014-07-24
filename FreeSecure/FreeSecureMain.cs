@@ -36,7 +36,7 @@ namespace FreeSecure
             }
             else
             {
-                MessageBox.Show("Cameras couldn't bel loaded, restart the applications");
+                DisplayMessageBox("Cameras couldn't bel loaded, restart the applications");
             }
         }
 
@@ -52,7 +52,7 @@ namespace FreeSecure
                 }
                 else
                 {
-                    MessageBox.Show(string.Format("{0} is already running", cameraName));
+                    DisplayMessageBox(string.Format("{0} is already running", cameraName));
                 }
             }
         }
@@ -70,7 +70,7 @@ namespace FreeSecure
                 }
                 else
                 {
-                    MessageBox.Show(string.Format("{0} is not running", cameraName));
+                    DisplayMessageBox(string.Format("{0} is not running", cameraName));
                 }
             }
         }
@@ -86,6 +86,10 @@ namespace FreeSecure
                     CameraView cameraView = new CameraView(cameraControllers[cameraName]);
                     cameraView.ShowDialog();
                 }
+                else
+                {
+                    DisplayMessageBox("Can't view a camera that is not running.\nStart camera to view");
+                }
             } 
         }
 
@@ -98,13 +102,17 @@ namespace FreeSecure
                     cameraController.Value.MotionFrameProcessingHandler -= MotionFrameProcessingHandler;
                     cameraController.Value.StopCamera();
                 }
-
             }
         }
 
         private bool CanUseCameras
         {
             get { return cameraManager.CamerasLoaded; }
+        }
+
+        private void DisplayMessageBox(string Message)
+        {
+            MessageBox.Show(Message);
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
