@@ -23,37 +23,37 @@ namespace FreeSecure
 
         private void CameraView_Load(object sender, EventArgs e)
         {
-            cameraController.FrameProcessingHandler += cameraController_FrameProcessingHandler;
-            cameraController.MotionFrameProcessingHandler += cameraController_MotionFrameProcessingHandler;
-            cameraController.FrameProcessingErrorHandler += cameraController_FrameProcessingErrorHandler;
-            cameraController.CameraClosingHandler += cameraController_CameraClosingHandler;
+            cameraController.FrameProcessingHandler += CameraController_FrameProcessingHandler;
+            cameraController.MotionFrameProcessingHandler += CameraController_MotionFrameProcessingHandler;
+            cameraController.FrameProcessingErrorHandler += CameraController_FrameProcessingErrorHandler;
+            cameraController.CameraClosingHandler += CameraController_CameraClosingHandler;
         }
 
         private void btnCloseCameraView_Click(object sender, EventArgs e)
         {
-            cameraController.FrameProcessingHandler -= cameraController_FrameProcessingHandler;
-            cameraController.MotionFrameProcessingHandler -= cameraController_MotionFrameProcessingHandler;
-            cameraController.FrameProcessingErrorHandler -= cameraController_FrameProcessingErrorHandler;
-            cameraController.CameraClosingHandler -= cameraController_CameraClosingHandler;
+            cameraController.FrameProcessingHandler -= CameraController_FrameProcessingHandler;
+            cameraController.MotionFrameProcessingHandler -= CameraController_MotionFrameProcessingHandler;
+            cameraController.FrameProcessingErrorHandler -= CameraController_FrameProcessingErrorHandler;
+            cameraController.CameraClosingHandler -= CameraController_CameraClosingHandler;
             this.Close();
         }
 
-        private void cameraController_FrameProcessingHandler(Bitmap image)
+        private void CameraController_FrameProcessingHandler(Bitmap image)
         {
             RenderImage(pboxLiveCamera, image);
         }
 
-        private void cameraController_MotionFrameProcessingHandler(Bitmap image)
+        private void CameraController_MotionFrameProcessingHandler(Bitmap image)
         {
             RenderImage(pboxMotionCamera, image);
         }
 
-        private void cameraController_CameraClosingHandler(CameraState obj)
+        private void CameraController_CameraClosingHandler(CameraState cameraState)
         {
             
         }
 
-        private void cameraController_FrameProcessingErrorHandler(string obj)
+        private void CameraController_FrameProcessingErrorHandler(string errorMessage)
         {
             
         }

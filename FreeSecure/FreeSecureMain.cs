@@ -42,7 +42,7 @@ namespace FreeSecure
 
         private void btnStartCamera_Click(object sender, EventArgs e)
         {
-            if (cameraManager.CamerasLoaded) {
+            if (CanUseCameras) {
                 string cameraName = comboBox1.SelectedItem.ToString();
 
                 if (!cameraControllers[cameraName].IsRunning())
@@ -59,7 +59,7 @@ namespace FreeSecure
 
         private void btnStopCamera_Click(object sender, EventArgs e)
         {
-            if (cameraManager.CamerasLoaded)
+            if (CanUseCameras)
             {
                 string cameraName = comboBox1.SelectedItem.ToString();
 
@@ -75,6 +75,38 @@ namespace FreeSecure
             }
         }
 
+        private void btnViewCamera_Click(object sender, EventArgs e)
+        {
+            if (CanUseCameras)
+            {
+                string cameraName = comboBox1.SelectedItem.ToString();
+
+                if (cameraControllers[cameraName].IsRunning())
+                {
+                    CameraView cameraView = new CameraView(cameraControllers[cameraName]);
+                    cameraView.ShowDialog();
+                }
+            } 
+        }
+
+        private void FreeSecureMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (CanUseCameras)
+            {
+                foreach (KeyValuePair<string, Controller> cameraController in cameraControllers)
+                {
+                    cameraController.Value.MotionFrameProcessingHandler -= MotionFrameProcessingHandler;
+                    cameraController.Value.StopCamera();
+                }
+
+            }
+        }
+
+        private bool CanUseCameras
+        {
+            get { return cameraManager.CamerasLoaded; }
+        }
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -82,7 +114,7 @@ namespace FreeSecure
 
         private void MotionFrameProcessingHandler(Bitmap frame)
         {
-            MessageBox.Show("Motion detected");
+            //
         }
     }
 }

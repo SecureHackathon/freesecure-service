@@ -32,6 +32,7 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.btnStartCamera = new System.Windows.Forms.Button();
             this.btnStopCamera = new System.Windows.Forms.Button();
+            this.btnViewCamera = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -72,11 +73,22 @@
             this.btnStopCamera.UseVisualStyleBackColor = true;
             this.btnStopCamera.Click += new System.EventHandler(this.btnStopCamera_Click);
             // 
+            // btnViewCamera
+            // 
+            this.btnViewCamera.Location = new System.Drawing.Point(27, 167);
+            this.btnViewCamera.Name = "btnViewCamera";
+            this.btnViewCamera.Size = new System.Drawing.Size(190, 38);
+            this.btnViewCamera.TabIndex = 4;
+            this.btnViewCamera.Text = "View Camera";
+            this.btnViewCamera.UseVisualStyleBackColor = true;
+            this.btnViewCamera.Click += new System.EventHandler(this.btnViewCamera_Click);
+            // 
             // FreeSecureMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(374, 261);
+            this.Controls.Add(this.btnViewCamera);
             this.Controls.Add(this.btnStopCamera);
             this.Controls.Add(this.btnStartCamera);
             this.Controls.Add(this.comboBox1);
@@ -84,6 +96,7 @@
             this.Name = "FreeSecureMain";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Text = "Free Secure";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FreeSecureMain_FormClosing);
             this.Load += new System.EventHandler(this.FreeSecureMain_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -96,6 +109,7 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button btnStartCamera;
         private System.Windows.Forms.Button btnStopCamera;
+        private System.Windows.Forms.Button btnViewCamera;
     }
 }
 

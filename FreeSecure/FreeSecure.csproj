@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CameraView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CameraView.Designer.cs">
+      <DependentUpon>CameraView.cs</DependentUpon>
+    </Compile>
     <Compile Include="FreeSecureMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -52,6 +58,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CameraView.resx">
+      <DependentUpon>CameraView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FreeSecureMain.resx">
       <DependentUpon>FreeSecureMain.cs</DependentUpon>
     </EmbeddedResource>
