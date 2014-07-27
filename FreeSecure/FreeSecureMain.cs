@@ -36,7 +36,7 @@ namespace FreeSecure
             }
             else
             {
-                DisplayMessageBox("Cameras couldn't bel loaded, restart the applications");
+                DisplayMessageBox("Cameras couldn't be loaded, restart the applications");
             }
         }
 
