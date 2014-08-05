@@ -27,15 +27,14 @@ namespace FreeSecureLib.Camera
                         Name = cameraInfo.Name
                     });
                 }
-                camerasLoaded = true;
+            }
+            else
+            {
+                throw new CameraLoadException("No Cameras where detected on the computer");
             }
         }
 
         public List<CameraModel> Cameras { get; private set; }
 
-        public bool CamerasLoaded
-        {
-            get { return camerasLoaded; }
-        }
     }
 }

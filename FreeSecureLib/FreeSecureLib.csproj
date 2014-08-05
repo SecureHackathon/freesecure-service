@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Camera\CameraLoadException.cs" />
     <Compile Include="Camera\CameraManager.cs" />
     <Compile Include="Camera\CameraModel.cs" />
     <Compile Include="Camera\CameraState.cs" />

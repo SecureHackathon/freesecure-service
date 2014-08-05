@@ -22,11 +22,11 @@ namespace FreeSecure
 
         private void FreeSecureMain_Load(object sender, EventArgs e)
         {
-            cameraControllers = new Dictionary<string, Controller>();
-            cameraManager = new CameraManager();
-            cameraManager.LoadCameras();
-            if (cameraManager.CamerasLoaded)
+            try
             {
+                cameraControllers = new Dictionary<string, Controller>();
+                cameraManager = new CameraManager();
+                cameraManager.LoadCameras();
                 foreach (var camera in cameraManager.Cameras)
                 {
                     cameraControllers[camera.Name] = new Controller(camera.MonikerString);
@@ -34,80 +34,69 @@ namespace FreeSecure
                 }
                 comboBox1.SelectedIndex = 0;
             }
-            else
+            catch (CameraLoadException exception)
             {
-                DisplayMessageBox("Cameras couldn't be loaded, restart the applications");
+                btnStartCamera.Enabled = false;
+                btnStopCamera.Enabled = false;
+                btnViewCamera.Enabled = false;
+                DisplayMessageBox("Cameras couldn't bel loaded, restart the applications");
             }
+
         }
 
         private void btnStartCamera_Click(object sender, EventArgs e)
         {
-            if (CanUseCameras) {
-                string cameraName = comboBox1.SelectedItem.ToString();
+            string cameraName = comboBox1.SelectedItem.ToString();
 
-                if (!cameraControllers[cameraName].IsRunning())
-                {
-                    cameraControllers[cameraName].StartCamera();
-                    cameraControllers[cameraName].MotionFrameProcessingHandler += MotionFrameProcessingHandler;
-                }
-                else
-                {
-                    DisplayMessageBox(string.Format("{0} is already running", cameraName));
-                }
+            if (!cameraControllers[cameraName].IsRunning())
+            {
+                cameraControllers[cameraName].StartCamera();
+                cameraControllers[cameraName].MotionFrameProcessingHandler += MotionFrameProcessingHandler;
+            }
+            else
+            {
+                DisplayMessageBox(string.Format("{0} is already running", cameraName));
             }
         }
 
         private void btnStopCamera_Click(object sender, EventArgs e)
         {
-            if (CanUseCameras)
-            {
-                string cameraName = comboBox1.SelectedItem.ToString();
+            string cameraName = comboBox1.SelectedItem.ToString();
 
-                if (cameraControllers[cameraName].IsRunning())
-                {
-                    cameraControllers[cameraName].MotionFrameProcessingHandler -= MotionFrameProcessingHandler;
-                    cameraControllers[cameraName].StopCamera();
-                }
-                else
-                {
-                    DisplayMessageBox(string.Format("{0} is not running", cameraName));
-                }
+            if (cameraControllers[cameraName].IsRunning())
+            {
+                cameraControllers[cameraName].MotionFrameProcessingHandler -= MotionFrameProcessingHandler;
+                cameraControllers[cameraName].StopCamera();
             }
+            else
+            {
+                DisplayMessageBox(string.Format("{0} is not running", cameraName));
+            }
+
         }
 
         private void btnViewCamera_Click(object sender, EventArgs e)
         {
-            if (CanUseCameras)
-            {
-                string cameraName = comboBox1.SelectedItem.ToString();
+            string cameraName = comboBox1.SelectedItem.ToString();
 
-                if (cameraControllers[cameraName].IsRunning())
-                {
-                    CameraView cameraView = new CameraView(cameraControllers[cameraName]);
-                    cameraView.ShowDialog();
-                }
-                else
-                {
-                    DisplayMessageBox("Can't view a camera that is not running.\nStart camera to view");
-                }
-            } 
+            if (cameraControllers[cameraName].IsRunning())
+            {
+                CameraView cameraView = new CameraView(cameraControllers[cameraName]);
+                cameraView.ShowDialog();
+            }
+            else
+            {
+                DisplayMessageBox("Can't view a camera that is not running.\nStart camera to view");
+            }
         }
 
         private void FreeSecureMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (CanUseCameras)
+            foreach (KeyValuePair<string, Controller> cameraController in cameraControllers)
             {
-                foreach (KeyValuePair<string, Controller> cameraController in cameraControllers)
-                {
-                    cameraController.Value.MotionFrameProcessingHandler -= MotionFrameProcessingHandler;
-                    cameraController.Value.StopCamera();
-                }
+                cameraController.Value.MotionFrameProcessingHandler -= MotionFrameProcessingHandler;
+                cameraController.Value.StopCamera();
             }
-        }
-
-        private bool CanUseCameras
-        {
-            get { return cameraManager.CamerasLoaded; }
         }
 
         private void DisplayMessageBox(string Message)
