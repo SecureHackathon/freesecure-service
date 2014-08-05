@@ -31,7 +31,7 @@ namespace FreeSecureLib.Camera
             }
         }
 
-        public List<CameraModel> Cameras { get; set; }
+        public List<CameraModel> Cameras { get; private set; }
 
         public bool CamerasLoaded
         {

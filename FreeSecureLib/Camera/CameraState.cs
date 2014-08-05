@@ -8,9 +8,9 @@ namespace FreeSecureLib.Camera
 {
     public enum CameraState
     {
-        EndOfStream = 0,
-        CameraStopped = 1,
-        CameraLost = 2,
-        CameraError = 4
+        EndOfStream,
+        CameraStopped,
+        CameraLost,
+        CameraError
     }
 }

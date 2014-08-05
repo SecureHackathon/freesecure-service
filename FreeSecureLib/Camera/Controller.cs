@@ -85,7 +85,7 @@ namespace FreeSecureLib.Camera
                 if (FrameProcessingHandler != null)
                     FrameProcessingHandler(frame);
 
-                if (MotionFrameProcessingHandler != null && motionDetector.ProcessFrame(eventArgs.Frame) > 0.10F)
+                if (MotionFrameProcessingHandler != null && motionDetector.ProcessFrame(eventArgs.Frame) > 0.08F)
                 {
                     MotionFrameProcessingHandler(frame);
                 }
