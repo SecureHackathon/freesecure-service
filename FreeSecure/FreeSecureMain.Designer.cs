@@ -38,26 +38,29 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 13);
+            this.label1.Location = new System.Drawing.Point(33, 89);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 13);
+            this.label1.Size = new System.Drawing.Size(64, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "Cameras";
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(96, 13);
+            this.comboBox1.Location = new System.Drawing.Point(118, 82);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(230, 21);
+            this.comboBox1.Size = new System.Drawing.Size(305, 24);
             this.comboBox1.TabIndex = 1;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // btnStartCamera
             // 
-            this.btnStartCamera.Location = new System.Drawing.Point(27, 60);
+            this.btnStartCamera.Location = new System.Drawing.Point(36, 140);
+            this.btnStartCamera.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnStartCamera.Name = "btnStartCamera";
-            this.btnStartCamera.Size = new System.Drawing.Size(190, 38);
+            this.btnStartCamera.Size = new System.Drawing.Size(387, 47);
             this.btnStartCamera.TabIndex = 2;
             this.btnStartCamera.Text = "Start Camera";
             this.btnStartCamera.UseVisualStyleBackColor = true;
@@ -65,9 +68,10 @@
             // 
             // btnStopCamera
             // 
-            this.btnStopCamera.Location = new System.Drawing.Point(27, 113);
+            this.btnStopCamera.Location = new System.Drawing.Point(36, 195);
+            this.btnStopCamera.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnStopCamera.Name = "btnStopCamera";
-            this.btnStopCamera.Size = new System.Drawing.Size(190, 38);
+            this.btnStopCamera.Size = new System.Drawing.Size(387, 47);
             this.btnStopCamera.TabIndex = 3;
             this.btnStopCamera.Text = "Stop Camera";
             this.btnStopCamera.UseVisualStyleBackColor = true;
@@ -75,9 +79,10 @@
             // 
             // btnViewCamera
             // 
-            this.btnViewCamera.Location = new System.Drawing.Point(27, 167);
+            this.btnViewCamera.Location = new System.Drawing.Point(36, 250);
+            this.btnViewCamera.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnViewCamera.Name = "btnViewCamera";
-            this.btnViewCamera.Size = new System.Drawing.Size(190, 38);
+            this.btnViewCamera.Size = new System.Drawing.Size(387, 47);
             this.btnViewCamera.TabIndex = 4;
             this.btnViewCamera.Text = "View Camera";
             this.btnViewCamera.UseVisualStyleBackColor = true;
@@ -85,14 +90,15 @@
             // 
             // FreeSecureMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(374, 261);
+            this.ClientSize = new System.Drawing.Size(455, 321);
             this.Controls.Add(this.btnViewCamera);
             this.Controls.Add(this.btnStopCamera);
             this.Controls.Add(this.btnStartCamera);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FreeSecureMain";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Text = "Free Secure";
