@@ -28,33 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pboxStatus = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pboxStatus)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // pboxStatus
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(17, 15);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(115, 116);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.pboxStatus.Location = new System.Drawing.Point(17, 15);
+            this.pboxStatus.Name = "pboxStatus";
+            this.pboxStatus.Size = new System.Drawing.Size(115, 116);
+            this.pboxStatus.TabIndex = 0;
+            this.pboxStatus.TabStop = false;
             // 
             // CameraStatusManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pboxStatus);
             this.Name = "CameraStatusManager";
             this.Size = new System.Drawing.Size(464, 150);
             this.Load += new System.EventHandler(this.CameraStatusManager_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboxStatus)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pboxStatus;
     }
 }

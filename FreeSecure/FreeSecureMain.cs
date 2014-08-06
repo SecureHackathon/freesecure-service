@@ -52,6 +52,7 @@ namespace FreeSecure
             {
                 cameraControllers[cameraName].StartCamera();
                 cameraControllers[cameraName].MotionFrameProcessingHandler += MotionFrameProcessingHandler;
+                LoadCameraStatus();
             }
             else
             {
@@ -67,6 +68,7 @@ namespace FreeSecure
             {
                 cameraControllers[cameraName].MotionFrameProcessingHandler -= MotionFrameProcessingHandler;
                 cameraControllers[cameraName].StopCamera();
+                LoadCameraStatus();
             }
             else
             {
@@ -106,7 +108,16 @@ namespace FreeSecure
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            LoadCameraStatus();
+        }
 
+        private void LoadCameraStatus()
+        {
+            string cameraName = comboBox1.SelectedItem.ToString();
+            bool isCameraRunning = cameraControllers[cameraName].IsRunning();
+            pboxStatus.Image = isCameraRunning ? Properties.Resources.on : Properties.Resources.off;
+            pboxStatus.Refresh();
+            
         }
 
         private void MotionFrameProcessingHandler(Bitmap frame)
