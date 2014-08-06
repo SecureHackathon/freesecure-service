@@ -14,6 +14,8 @@ namespace FreeSecure.UserControls
     {
         private bool isCameraRunning = false;
         private Action<bool> cameraDelegate;
+        private string imageAddress = "../resources/images/{0}.png";
+
         public CameraStatusManager()
         {
             InitializeComponent();
@@ -38,7 +40,7 @@ namespace FreeSecure.UserControls
 
         private void ShowCameraStatus(bool isRunning)
         {
-
+            pboxStatus.Image = Image.FromFile(string.Format(imageAddress, isCameraRunning ? "on" : "off"));
         }
 
     }
