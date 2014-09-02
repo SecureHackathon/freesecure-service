@@ -25,5 +25,10 @@ namespace FreeSecureLib.Network
                 "POST",
                 uploadString);
         }
+
+        public void UploadImage(System.Drawing.Image detectedImage)
+        {
+
+        }
     }
 }

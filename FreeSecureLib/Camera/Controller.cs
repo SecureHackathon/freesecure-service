@@ -31,6 +31,8 @@ namespace FreeSecureLib.Camera
 
         private string cameraName;
 
+        private bool motionDetected = false;
+
         public Controller(string name, string monikerString) {
             cameraName = name;
             videoDevice = new VideoCaptureDevice(monikerString);
@@ -67,6 +69,11 @@ namespace FreeSecureLib.Camera
             }
         }
 
+        public void MotionAcknowledged()
+        {
+            motionDetected = false;
+        }
+
         private void videoSource_VideoSourceError(object sender, VideoSourceErrorEventArgs eventArgs)
         {
             if (FrameProcessingErrorHandler != null)
@@ -88,9 +95,10 @@ namespace FreeSecureLib.Camera
                 if (FrameProcessingHandler != null)
                     FrameProcessingHandler(frame);
 
-                if (MotionFrameProcessingHandler != null && motionDetector.ProcessFrame(eventArgs.Frame) > 0.08F)
+                if (!motionDetected && MotionFrameProcessingHandler != null && motionDetector.ProcessFrame(eventArgs.Frame) > 0.08F)
                 {
                     MotionFrameProcessingHandler(new MotionModel() { CameraName = cameraName, Image = frame });
+                    motionDetected = true;
                 }
             }
         }
