@@ -29,7 +29,7 @@ namespace FreeSecure
                 cameraManager.LoadCameras();
                 foreach (var camera in cameraManager.Cameras)
                 {
-                    cameraControllers[camera.Name] = new Controller(camera.MonikerString);
+                    cameraControllers[camera.Name] = new Controller(camera.Name, camera.MonikerString);
                     comboBox1.Items.Add(camera.Name);
                 }
                 comboBox1.SelectedIndex = 0;
@@ -122,7 +122,8 @@ namespace FreeSecure
 
         private void MotionFrameProcessingHandler(MotionModel motionModel)
         {
-            //
+            FreeSecureLib.Network.HttpClient client = new FreeSecureLib.Network.HttpClient();
+            client.UploadDetection(motionModel.CameraName);
         }
     }
 }

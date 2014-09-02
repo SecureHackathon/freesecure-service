@@ -29,7 +29,10 @@ namespace FreeSecureLib.Camera
 
         private static object frameLock = new object();
 
-        public Controller(string monikerString) {
+        private string cameraName;
+
+        public Controller(string name, string monikerString) {
+            cameraName = name;
             videoDevice = new VideoCaptureDevice(monikerString);
             videoSource = new AsyncVideoSource(videoDevice, true);
             motionDetector = new MotionDetector(new SimpleBackgroundModelingDetector());
@@ -87,7 +90,7 @@ namespace FreeSecureLib.Camera
 
                 if (MotionFrameProcessingHandler != null && motionDetector.ProcessFrame(eventArgs.Frame) > 0.08F)
                 {
-                    MotionFrameProcessingHandler(new MotionModel() { CameraName = "", Image = frame });
+                    MotionFrameProcessingHandler(new MotionModel() { CameraName = cameraName, Image = frame });
                 }
             }
         }

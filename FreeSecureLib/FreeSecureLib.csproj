@@ -69,7 +69,7 @@
     <Compile Include="Camera\CameraStateManager.cs" />
     <Compile Include="Camera\Controller.cs" />
     <Compile Include="Camera\MotionModel.cs" />
-    <Compile Include="Network\BaseHttpClient.cs" />
+    <Compile Include="Network\HttpClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
