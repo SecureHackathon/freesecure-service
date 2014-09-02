@@ -43,9 +43,9 @@ namespace FreeSecure
             RenderImage(pboxLiveCamera, image);
         }
 
-        private void CameraController_MotionFrameProcessingHandler(Bitmap image)
+        private void CameraController_MotionFrameProcessingHandler(FreeSecureLib.Camera.MotionModel model)
         {
-            RenderImage(pboxMotionCamera, image);
+            RenderImage(pboxMotionCamera, model.Image);
         }
 
         private void CameraController_CameraClosingHandler(CameraState cameraState)

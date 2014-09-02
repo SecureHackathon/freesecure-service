@@ -120,7 +120,7 @@ namespace FreeSecure
             
         }
 
-        private void MotionFrameProcessingHandler(Bitmap frame)
+        private void MotionFrameProcessingHandler(MotionModel motionModel)
         {
             //
         }

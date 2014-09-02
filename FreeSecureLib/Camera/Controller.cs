@@ -15,7 +15,7 @@ namespace FreeSecureLib.Camera
 
         public event Action<System.Drawing.Bitmap> FrameProcessingHandler;
 
-        public event Action<System.Drawing.Bitmap> MotionFrameProcessingHandler;
+        public event Action<MotionModel> MotionFrameProcessingHandler;
 
         public event Action<CameraState> CameraClosingHandler;
 
@@ -55,12 +55,12 @@ namespace FreeSecureLib.Camera
         public void StopCamera()
         {
             if (IsRunning()) {
-                videoSource.SignalToStop();
-                videoSource.Stop();
-
                 videoSource.NewFrame -= videoSource_NewFrame;
                 videoSource.PlayingFinished -= videoSource_PlayingFinished;
                 videoSource.VideoSourceError -= videoSource_VideoSourceError;
+                
+                videoSource.SignalToStop();
+                videoSource.Stop();
             }
         }
 
@@ -87,7 +87,7 @@ namespace FreeSecureLib.Camera
 
                 if (MotionFrameProcessingHandler != null && motionDetector.ProcessFrame(eventArgs.Frame) > 0.08F)
                 {
-                    MotionFrameProcessingHandler(frame);
+                    MotionFrameProcessingHandler(new MotionModel() { CameraName = "", Image = frame });
                 }
             }
         }
