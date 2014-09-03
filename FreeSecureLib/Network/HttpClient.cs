@@ -1,6 +1,7 @@
 ﻿using FreeSecureLib.Camera;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -21,17 +22,22 @@ namespace FreeSecureLib.Network
 
         public void UploadToServer(MotionModel motionModel)
         {
-            Thread thread = new Thread(UploadImage);
-            thread.Start(motionModel);
+            UploadImage(motionModel);
         }
 
         public void UploadImage(object model)
         {
             var motionModel = (Camera.MotionModel)model;
-            string imageFileName = string.Format("{0}_{1}.jpg", motionModel.CameraName, Guid.NewGuid());
-            motionModel.Image.Save(imageFileName);
-            System.Threading.Thread.Sleep(2000);
-            _webClient.UploadFile("http://localhost/SecureWeb/api/image", "POST",imageFileName);
+            string imageFileName = string.Format("{0}_{1}.jpg", motionModel.CameraName, Guid.NewGuid().ToString("N"));
+            File.WriteAllBytes(imageFileName, convertImageToByteArray(motionModel.Image));
+            _webClient.UploadFile("http://localhost/SecureWeb/api/detection", "POST", imageFileName);
+        }
+
+        private byte[] convertImageToByteArray(System.Drawing.Image image)
+        {
+            MemoryStream ms = new MemoryStream();
+            image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            return ms.ToArray();
         }
     }
 }
