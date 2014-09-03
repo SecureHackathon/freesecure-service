@@ -123,7 +123,7 @@ namespace FreeSecure
         private void MotionFrameProcessingHandler(MotionModel motionModel)
         {
             FreeSecureLib.Network.HttpClient client = new FreeSecureLib.Network.HttpClient();
-            client.UploadDetection(motionModel.CameraName);
+            client.UploadToServer(motionModel);
         }
     }
 }

@@ -1,8 +1,11 @@
-﻿using System;
+﻿using FreeSecureLib.Camera;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FreeSecureLib.Network
@@ -16,19 +19,19 @@ namespace FreeSecureLib.Network
             _webClient = new System.Net.WebClient();
         }
 
-        public void UploadDetection(string cameraName)
+        public void UploadToServer(MotionModel motionModel)
         {
-            string uploadString = "{\"CameraName\": \"" + cameraName + "\"}";
-            _webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
-            _webClient.UploadStringAsync(
-                new Uri("http://localhost/SecureWeb/api/detection"), 
-                "POST",
-                uploadString);
+            Thread thread = new Thread(UploadImage);
+            thread.Start(motionModel);
         }
 
-        public void UploadImage(System.Drawing.Image detectedImage)
+        public void UploadImage(object model)
         {
-
+            var motionModel = (Camera.MotionModel)model;
+            string imageFileName = string.Format("{0}_{1}.jpg", motionModel.CameraName, Guid.NewGuid());
+            motionModel.Image.Save(imageFileName);
+            System.Threading.Thread.Sleep(2000);
+            _webClient.UploadFile("http://localhost/SecureWeb/api/image", "POST",imageFileName);
         }
     }
 }
