@@ -68,7 +68,6 @@ namespace FreeSecure
             {
                 cameraControllers[cameraName].MotionFrameProcessingHandler -= MotionFrameProcessingHandler;
                 cameraControllers[cameraName].StopCamera();
-                cameraControllers[cameraName].MotionAcknowledged();
                 LoadCameraStatus();
             }
             else
